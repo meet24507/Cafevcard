@@ -1,0 +1,652 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>The Brew House – Cafe vCard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&family=Satisfy&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #2c1a0e;
+    --brown:    #5c3317;
+    --caramel:  #c07535;
+    --latte:    #d4a96a;
+    --cream:    #fdf6ee;
+    --parchment:#f5ead8;
+    --warm:     #fef9f2;
+    --text:     #2c1a0e;
+    --muted:    #8a6040;
+    --green:    #3a6645;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Lato', sans-serif;
+    background: #d4b896;
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 420px;
+    background: var(--warm);
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+  }
+
+  /* ─── HERO ─── */
+  .hero {
+    position: relative;
+    min-height: 400px;
+    background: var(--espresso);
+    overflow: hidden;
+  }
+
+  /* Steam animation */
+  @keyframes steam {
+    0%   { transform: translateY(0) scaleX(1); opacity: 0.6; }
+    50%  { transform: translateY(-18px) scaleX(1.3); opacity: 0.3; }
+    100% { transform: translateY(-35px) scaleX(0.8); opacity: 0; }
+  }
+
+  .steam-wrap {
+    position: absolute;
+    bottom: 90px; left: 50%;
+    transform: translateX(-50%);
+    display: flex; gap: 8px;
+    z-index: 3;
+  }
+  .steam {
+    width: 4px; height: 24px;
+    background: rgba(255,255,255,0.25);
+    border-radius: 4px;
+    animation: steam 2s ease-in-out infinite;
+  }
+  .steam:nth-child(2) { animation-delay: 0.4s; }
+  .steam:nth-child(3) { animation-delay: 0.8s; }
+
+  /* Hero coffee image placeholder – richly styled div */
+  .hero-photo {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse at 60% 40%, rgba(192,117,53,0.25) 0%, transparent 60%),
+      radial-gradient(ellipse at 20% 90%, rgba(92,51,23,0.4) 0%, transparent 50%);
+  }
+  .hero-img {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    opacity: 0.45;
+  }
+
+  /* Dark overlay gradient */
+  .hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to bottom,
+      rgba(44,26,14,0.55) 0%,
+      rgba(44,26,14,0.2) 40%,
+      rgba(44,26,14,0.75) 100%);
+    z-index: 2;
+  }
+
+  /* NAV */
+  .nav {
+    position: relative; z-index: 10;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 18px 18px 0;
+  }
+  .logo-cup {
+    display: flex; align-items: center; gap: 10px;
+  }
+  .cup-icon {
+    width: 46px; height: 46px;
+    background: var(--caramel);
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 24px;
+  }
+  .logo-name {
+    font-family: 'Satisfy', cursive;
+    font-size: 18px; color: var(--latte);
+    line-height: 1;
+  }
+  .logo-sub {
+    font-size: 9px; color: rgba(212,169,106,0.6);
+    letter-spacing: 2px; text-transform: uppercase;
+    font-family: 'Lato', sans-serif;
+  }
+  .menu-btn {
+    width: 40px; height: 40px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 10px; border: 1px solid rgba(212,169,106,0.3);
+    color: var(--latte); font-size: 18px;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+  }
+
+  /* Hero Text */
+  .hero-text {
+    position: relative; z-index: 5;
+    padding: 28px 20px 0;
+    text-align: center;
+  }
+  .open-pill {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(58,102,69,0.8);
+    border: 1px solid rgba(58,102,69,0.6);
+    color: #a8e6b8;
+    border-radius: 20px; padding: 5px 14px;
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.5px; margin-bottom: 12px;
+  }
+  .open-dot {
+    width: 7px; height: 7px;
+    background: #5ddb7a;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  .big-name {
+    font-family: 'Satisfy', cursive;
+    font-size: 52px;
+    color: var(--cream);
+    line-height: 1;
+    text-shadow: 0 2px 20px rgba(0,0,0,0.4);
+  }
+  .big-name .accent { color: var(--latte); }
+  .tagline {
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 15px; color: rgba(253,246,238,0.7);
+    margin-top: 6px; margin-bottom: 20px;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hours strip */
+  .hours-strip {
+    display: flex; justify-content: center; gap: 20px;
+    background: rgba(44,26,14,0.5);
+    border: 1px solid rgba(212,169,106,0.2);
+    border-radius: 12px; padding: 10px 16px;
+    margin: 0 0 20px;
+  }
+  .hours-item {
+    display: flex; flex-direction: column; align-items: center; gap: 2px;
+  }
+  .hours-day { font-size: 9px; color: var(--latte); letter-spacing: 1px; text-transform: uppercase; }
+  .hours-time { font-size: 12px; color: var(--cream); font-weight: 700; }
+
+  /* CTA */
+  .cta-row {
+    display: flex; gap: 8px; padding-bottom: 24px;
+  }
+  .cta-btn {
+    flex: 1; display: flex; align-items: center;
+    justify-content: center; gap: 5px;
+    border-radius: 12px; padding: 13px 8px;
+    font-family: 'Lato', sans-serif;
+    font-size: 13px; font-weight: 700;
+    cursor: pointer; text-decoration: none;
+    border: none; transition: transform 0.15s, opacity 0.15s;
+  }
+  .cta-btn:hover { transform: translateY(-1px); opacity: 0.9; }
+  .cta-btn.caramel { background: var(--caramel); color: white; }
+  .cta-btn.wa { background: #25D366; color: white; }
+  .cta-btn.outline {
+    background: rgba(255,255,255,0.1);
+    color: var(--cream);
+    border: 1px solid rgba(212,169,106,0.3);
+  }
+
+  /* ─── SECTIONS ─── */
+  section { padding: 26px 18px 0; }
+
+  .sec-head {
+    display: flex; align-items: center; gap: 12px;
+    margin-bottom: 16px;
+  }
+  .sec-icon { font-size: 18px; }
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 20px; font-weight: 700;
+    color: var(--espresso);
+  }
+  .sec-line {
+    flex: 1; height: 1px;
+    background: linear-gradient(to right, #d4a96a44, transparent);
+  }
+
+  /* ─── MENU HIGHLIGHTS ─── */
+  .menu-scroll {
+    display: flex; gap: 10px;
+    overflow-x: auto; padding-bottom: 4px;
+    scrollbar-width: none;
+  }
+  .menu-scroll::-webkit-scrollbar { display: none; }
+
+  .menu-card {
+    flex-shrink: 0;
+    width: 130px;
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #ede0cf;
+    transition: transform 0.2s;
+  }
+  .menu-card:hover { transform: translateY(-3px); }
+  .menu-thumb {
+    width: 100%; height: 90px;
+    object-fit: cover;
+    background: var(--parchment);
+  }
+  .menu-thumb-placeholder {
+    width: 100%; height: 90px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 36px;
+    background: var(--parchment);
+  }
+  .menu-info { padding: 10px 10px 12px; }
+  .menu-name {
+    font-size: 12px; font-weight: 700;
+    color: var(--espresso); margin-bottom: 2px;
+  }
+  .menu-desc { font-size: 10px; color: var(--muted); line-height: 1.3; margin-bottom: 6px; }
+  .menu-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 700;
+    color: var(--caramel);
+  }
+
+  /* ─── ABOUT ─── */
+  .about-card {
+    background: var(--espresso);
+    border-radius: 18px;
+    padding: 20px;
+    position: relative; overflow: hidden;
+  }
+  .about-card::before {
+    content: '☕';
+    position: absolute;
+    right: 16px; bottom: -10px;
+    font-size: 80px; opacity: 0.07;
+    pointer-events: none;
+  }
+  .owner-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  }
+  .owner-img {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--caramel);
+  }
+  .owner-info .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; color: var(--cream);
+  }
+  .owner-info .role {
+    font-size: 11px; color: var(--latte);
+    letter-spacing: 0.5px;
+  }
+  .about-text {
+    font-size: 13px; color: rgba(253,246,238,0.75);
+    line-height: 1.7; font-weight: 300;
+  }
+  .about-text span { color: var(--latte); font-style: italic; }
+
+  /* Vibes chips */
+  .vibes-row {
+    display: flex; gap: 8px; flex-wrap: wrap; margin-top: 14px;
+  }
+  .vibe-chip {
+    background: rgba(212,169,106,0.15);
+    border: 1px solid rgba(212,169,106,0.25);
+    color: var(--latte);
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 11px;
+  }
+
+  /* ─── GALLERY ─── */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 6px;
+    border-radius: 14px; overflow: hidden;
+  }
+  .gallery-grid .tall {
+    grid-row: span 2;
+  }
+  .gal-img {
+    width: 100%; height: 100px;
+    object-fit: cover;
+    transition: transform 0.3s;
+    cursor: pointer;
+    background: var(--parchment);
+    font-size: 30px;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .gal-img.tall { height: 206px; }
+  .gal-img:hover { transform: scale(1.04); }
+
+  /* ─── SPECIALS ─── */
+  .specials-list { display: flex; flex-direction: column; gap: 10px; }
+  .special-row {
+    display: flex; align-items: center; gap: 12px;
+    background: white;
+    border-radius: 14px; padding: 12px 14px;
+    border: 1px solid #ede0cf;
+  }
+  .sp-emoji { font-size: 28px; flex-shrink: 0; }
+  .sp-info { flex: 1; }
+  .sp-name { font-size: 14px; font-weight: 700; color: var(--espresso); }
+  .sp-desc { font-size: 11px; color: var(--muted); line-height: 1.4; }
+  .sp-price {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px; font-weight: 700;
+    color: var(--caramel); flex-shrink: 0;
+  }
+
+  /* ─── BOTTOM BAR ─── */
+  .bottom-bar {
+    position: fixed; bottom: 0; left: 50%;
+    transform: translateX(-50%);
+    width: 100%; max-width: 420px;
+    background: var(--espresso);
+    display: flex; z-index: 100;
+    box-shadow: 0 -4px 20px rgba(44,26,14,0.4);
+  }
+  .bar-btn {
+    flex: 1; display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 3px; padding: 11px 4px;
+    color: rgba(253,246,238,0.7);
+    font-family: 'Lato', sans-serif;
+    font-size: 9px; font-weight: 700;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    cursor: pointer; border: none; background: none;
+    text-decoration: none;
+    transition: background 0.15s;
+  }
+  .bar-btn:hover { background: rgba(255,255,255,0.07); }
+  .bar-btn.wa { background: #25D366; color: white; }
+  .bar-btn.wa:hover { background: #1eb558; }
+  .bar-btn .bi { font-size: 18px; line-height: 1; }
+
+  /* Reveal */
+  .reveal { opacity: 0; transform: translateY(16px); transition: all 0.45s ease; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+</style>
+</head>
+<body>
+<div class="card">
+
+  <!-- HERO -->
+  <div class="hero">
+    <img class="hero-img"
+      src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&q=80&auto=format&fit=crop"
+      alt="Cafe interior" />
+    <div class="hero-photo"></div>
+    <div class="hero-overlay"></div>
+
+    <!-- NAV -->
+    <nav class="nav">
+      <div class="logo-cup">
+        <div class="cup-icon">☕</div>
+        <div>
+          <div class="logo-name">The Brew House</div>
+          <div class="logo-sub">Artisan Coffee & More</div>
+        </div>
+      </div>
+      <button class="menu-btn">☰</button>
+    </nav>
+
+    <div class="hero-text">
+      <div class="open-pill">
+        <div class="open-dot"></div> Open Now
+      </div>
+
+      <div class="big-name">The <span class="accent">Brew</span><br>House</div>
+      <div class="tagline">"Where every sip tells a story"</div>
+
+      <div class="hours-strip">
+        <div class="hours-item">
+          <div class="hours-day">Mon – Fri</div>
+          <div class="hours-time">8am – 10pm</div>
+        </div>
+        <div style="width:1px; background:rgba(212,169,106,0.2);"></div>
+        <div class="hours-item">
+          <div class="hours-day">Sat – Sun</div>
+          <div class="hours-time">9am – 11pm</div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="tel:+919876543210" class="cta-btn caramel">📞 Call</a>
+        <a href="https://wa.me/919876543210" class="cta-btn wa">💬 WhatsApp</a>
+        <a href="https://maps.google.com" class="cta-btn outline">📍 Map</a>
+      </div>
+    </div>
+
+    <div class="steam-wrap">
+      <div class="steam"></div>
+      <div class="steam"></div>
+      <div class="steam"></div>
+    </div>
+  </div>
+
+  <!-- MENU HIGHLIGHTS -->
+  <section class="reveal">
+    <div class="sec-head">
+      <span class="sec-icon">☕</span>
+      <div class="sec-title">Menu Highlights</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="menu-scroll">
+      <div class="menu-card">
+        <img class="menu-thumb"
+          src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=200&q=80&auto=format&fit=crop"
+          alt="Cappuccino" />
+        <div class="menu-info">
+          <div class="menu-name">Cappuccino</div>
+          <div class="menu-desc">Velvety foam, rich espresso</div>
+          <div class="menu-price">₹180</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-thumb"
+          src="https://images.unsplash.com/photo-1572490122747-3968b75cc699?w=200&q=80&auto=format&fit=crop"
+          alt="Cold Brew" />
+        <div class="menu-info">
+          <div class="menu-name">Cold Brew</div>
+          <div class="menu-desc">12hr steeped, ultra smooth</div>
+          <div class="menu-price">₹220</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb-placeholder">🥐</div>
+        <div class="menu-info">
+          <div class="menu-name">Butter Croissant</div>
+          <div class="menu-desc">Freshly baked each morning</div>
+          <div class="menu-price">₹150</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <img class="menu-thumb"
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=200&q=80&auto=format&fit=crop"
+          alt="Matcha Latte" />
+        <div class="menu-info">
+          <div class="menu-name">Matcha Latte</div>
+          <div class="menu-desc">Japanese ceremonial grade</div>
+          <div class="menu-price">₹240</div>
+        </div>
+      </div>
+      <div class="menu-card">
+        <div class="menu-thumb-placeholder">🍰</div>
+        <div class="menu-info">
+          <div class="menu-name">Chocolate Cake</div>
+          <div class="menu-desc">Belgian dark, house-made</div>
+          <div class="menu-price">₹200</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="reveal" style="margin-top:8px;">
+    <div class="sec-head">
+      <span class="sec-icon">🫶</span>
+      <div class="sec-title">Our Story</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="about-card">
+      <div class="owner-row">
+        <img class="owner-img"
+          src="https://randomuser.me/api/portraits/men/46.jpg"
+          alt="Owner" />
+        <div class="owner-info">
+          <div class="name">Arjun Khanna</div>
+          <div class="role">Founder & Head Barista</div>
+        </div>
+      </div>
+      <div class="about-text">
+        Trained in <span>Melbourne & Milan</span>, Arjun founded The Brew House in 2019 with a single mission — bring honest, craft coffee to the neighbourhood. Every bean is single-origin, every cup is made with intention.
+      </div>
+      <div class="vibes-row">
+        <span class="vibe-chip">🎵 Live Music Fri</span>
+        <span class="vibe-chip">🐾 Pet Friendly</span>
+        <span class="vibe-chip">💻 Work-friendly WiFi</span>
+        <span class="vibe-chip">🌱 Vegan Options</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section class="reveal" style="margin-top:8px;">
+    <div class="sec-head">
+      <span class="sec-icon">📸</span>
+      <div class="sec-title">Ambiance</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="gallery-grid">
+      <img class="gal-img tall"
+        src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&q=80&auto=format&fit=crop"
+        alt="Cafe interior" style="height:206px;" />
+      <img class="gal-img"
+        src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=200&q=80&auto=format&fit=crop"
+        alt="Coffee art" />
+      <img class="gal-img"
+        src="https://images.unsplash.com/photo-1600093463592-8e36ae95ef56?w=200&q=80&auto=format&fit=crop"
+        alt="Pastry" />
+      <img class="gal-img"
+        src="https://images.unsplash.com/photo-1511920170033-f8396924c348?w=200&q=80&auto=format&fit=crop"
+        alt="Barista" />
+      <img class="gal-img"
+        src="https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=200&q=80&auto=format&fit=crop"
+        alt="Seating" />
+    </div>
+  </section>
+
+  <!-- CHEF'S SPECIALS -->
+  <section class="reveal" style="margin-top:8px;">
+    <div class="sec-head">
+      <span class="sec-icon">⭐</span>
+      <div class="sec-title">Chef's Specials</div>
+      <div class="sec-line"></div>
+    </div>
+    <div class="specials-list">
+      <div class="special-row">
+        <div class="sp-emoji">🥞</div>
+        <div class="sp-info">
+          <div class="sp-name">Ricotta Pancakes</div>
+          <div class="sp-desc">Fluffy, honey drizzle, seasonal berries</div>
+        </div>
+        <div class="sp-price">₹320</div>
+      </div>
+      <div class="special-row">
+        <div class="sp-emoji">🥗</div>
+        <div class="sp-info">
+          <div class="sp-name">Avocado Toast</div>
+          <div class="sp-desc">Sourdough, poached egg, microgreens</div>
+        </div>
+        <div class="sp-price">₹280</div>
+      </div>
+      <div class="special-row">
+        <div class="sp-emoji">☕</div>
+        <div class="sp-info">
+          <div class="sp-name">Pour-Over Flight</div>
+          <div class="sp-desc">3 single-origin beans, guided tasting</div>
+        </div>
+        <div class="sp-price">₹450</div>
+      </div>
+      <div class="special-row">
+        <div class="sp-emoji">🍫</div>
+        <div class="sp-info">
+          <div class="sp-name">Brownie Sundae</div>
+          <div class="sp-desc">Warm brownie, vanilla gelato, caramel</div>
+        </div>
+        <div class="sp-price">₹260</div>
+      </div>
+    </div>
+    <p style="text-align:center; font-size:11px; color:var(--muted); margin-top:14px; padding-bottom:4px;">
+      📦 Takeaway & 🛵 Delivery Available · Party Bookings Welcome
+    </p>
+  </section>
+
+</div><!-- /card -->
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <button class="bar-btn" onclick="saveContact()">
+    <span class="bi">👤</span>
+    <span>Save</span>
+  </button>
+  <button class="bar-btn" onclick="shareCard()">
+    <span class="bi">🔗</span>
+    <span>Share</span>
+  </button>
+  <a href="https://wa.me/919876543210" class="bar-btn wa" style="text-decoration:none;">
+    <span class="bi">💬</span>
+    <span>WhatsApp</span>
+  </a>
+  <a href="tel:+919876543210" class="bar-btn" style="text-decoration:none;color:rgba(253,246,238,0.7);">
+    <span class="bi">📞</span>
+    <span>Call</span>
+  </a>
+</div>
+
+<script>
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting)
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+    });
+  }, { threshold: 0.08 });
+  reveals.forEach(r => obs.observe(r));
+
+  function saveContact() {
+    const vc = `BEGIN:VCARD\nVERSION:3.0\nFN:The Brew House Cafe\nORG:The Brew House\nTEL;TYPE=CELL:+919876543210\nEMAIL:hello@thebrewhouse.in\nURL:https://thebrewhouse.in\nTITLE:Artisan Coffee & Cafe\nNOTE:Mon-Fri 8am-10pm | Sat-Sun 9am-11pm\nEND:VCARD`;
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(new Blob([vc], {type:'text/vcard'}));
+    a.download = 'The_Brew_House.vcf'; a.click();
+  }
+
+  async function shareCard() {
+    if (navigator.share) {
+      try { await navigator.share({ title: 'The Brew House', text: 'Artisan Coffee & Cafe – Come visit us!', url: window.location.href }); }
+      catch {}
+    } else {
+      navigator.clipboard?.writeText(window.location.href);
+      alert('Link copied!');
+    }
+  }
+</script>
+</body>
+</html>
